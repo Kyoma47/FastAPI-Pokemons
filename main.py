@@ -16,7 +16,15 @@ pokemon_dict = {
 
 app = FastAPI()
 
-
+# Nombre de pokemons : 
 @app.get("/total_pokemons")
 def get_total_pokemons() -> dict : 
     return {"total" : len(pokemon_dict) }
+
+# Liste des pokemons :
+@app.get("/pokemons")
+def get_all_pokemons() -> list[Pokemon] :
+    response = [] 
+    for id in pokemon_dict : 
+        response.append( Pokemon( **pokemon_dict[id] ) )
+    return response
