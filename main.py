@@ -1,5 +1,6 @@
 import json 
 from classes import Pokemon
+from fastapi import FastAPI
 
 # Chargement des pokemons : json => python list
 with open("pokemons.json", "r") as file :
@@ -13,7 +14,4 @@ pokemon_dict = {
     k+1 : v  for k,v in enumerate(pokemon_list)
 }
 
-
-
-
-print(pokemon_dict)
+app = FastAPI()
