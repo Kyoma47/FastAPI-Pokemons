@@ -64,3 +64,15 @@ def update_pokemon(pokemon: Pokemon, id: int = Path(ge=1) ) -> Pokemon :
     pokemon_dict[id] = asdict( pokemon )
     return pokemon
 
+#========================================
+#  DELETE 
+#========================================
+# Supprimer un pokemon :
+@app.delete("/pokemon/{id}")
+def delete_pokemon( id: int = Path(ge=1) ) -> Pokemon :
+    if id not in pokemon_dict :
+        raise HTTPException(status_code=404, detail="Ce pokemon n'existe pas !")
+    pokemon = Pokemon( **pokemon_dict[id] )
+    del pokemon_dict[id]
+    return pokemon
+    
