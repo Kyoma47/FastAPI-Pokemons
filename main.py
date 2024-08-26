@@ -1,6 +1,6 @@
 import json 
 from classes import Pokemon
-from fastapi import FastAPI
+from fastapi import FastAPI, Path, HTTPException
 
 # Chargement des pokemons : json => python list
 with open("pokemons.json", "r") as file :
@@ -28,3 +28,11 @@ def get_all_pokemons() -> list[Pokemon] :
     for id in pokemon_dict : 
         response.append( Pokemon( **pokemon_dict[id] ) )
     return response
+
+# Récuperer un seul pokemon :
+@app .get("/pokemon/{id}")
+def get_pokemon_by_id(id : int = Path(ge=1) ) -> Pokemon : # Negative id => 422 Unprocessable Entity
+#def get_pokemon_by_id(id : int = Path(ge=1, lt=150) ) -> Pokemon : 
+    if id not in pokemon_dict :
+        raise HTTPException(status_code=404, detail="Ce Pokemon n'existe pas !")
+    return Pokemon(**pokemon_dict[id])
