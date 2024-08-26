@@ -15,3 +15,8 @@ pokemon_dict = {
 }
 
 app = FastAPI()
+
+
+@app.get("/total_pokemons")
+def get_total_pokemons() -> dict : 
+    return {"total" : len(pokemon_dict) }
