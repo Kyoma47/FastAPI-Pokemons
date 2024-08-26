@@ -48,6 +48,7 @@ def get_all_types() -> list[str] :
     for pokemon in pokemon_list : 
         for type_name in pokemon["types"] : 
             if type_name not in type_list : type_list.append( type_name )
+    type_list.sort()
     return type_list 
 
 
