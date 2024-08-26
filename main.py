@@ -41,6 +41,15 @@ def get_pokemon_by_id(id : int = Path(ge=1) ) -> Pokemon : # Negative id => 422 
         raise HTTPException(status_code=404, detail="Ce pokemon n'existe pas !")
     return Pokemon(**pokemon_dict[id])
 
+# Retourner tous les types de pokemons :
+@app.get("/types")
+def get_all_types() -> list[str] :
+    type_list = []
+    for pokemon in pokemon_list : 
+        for type_name in pokemon["types"] : 
+            if type_name not in type_list : type_list.append( type_name )
+    return type_list 
+
 
 #========================================
 #  POST 
@@ -75,4 +84,7 @@ def delete_pokemon( id: int = Path(ge=1) ) -> Pokemon :
     pokemon = Pokemon( **pokemon_dict[id] )
     del pokemon_dict[id]
     return pokemon
+
+
+
     
