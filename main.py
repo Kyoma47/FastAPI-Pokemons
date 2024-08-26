@@ -1,3 +1,4 @@
+from dataclasses import asdict
 import json 
 from classes import Pokemon
 from fastapi import FastAPI, Path, HTTPException
@@ -16,6 +17,9 @@ pokemon_dict = {
 
 app = FastAPI()
 
+#========================================
+#  GET 
+#========================================
 # Nombre de pokemons : 
 @app.get("/total_pokemons")
 def get_total_pokemons() -> dict : 
@@ -34,5 +38,17 @@ def get_all_pokemons() -> list[Pokemon] :
 def get_pokemon_by_id(id : int = Path(ge=1) ) -> Pokemon : # Negative id => 422 Unprocessable Entity
 #def get_pokemon_by_id(id : int = Path(ge=1, lt=150) ) -> Pokemon : 
     if id not in pokemon_dict :
-        raise HTTPException(status_code=404, detail="Ce Pokemon n'existe pas !")
+        raise HTTPException(status_code=404, detail="Ce pokemon n'existe pas !")
     return Pokemon(**pokemon_dict[id])
+
+
+#========================================
+#  POST 
+#========================================
+# Créer un Nouveau Pokemon :
+@app.post("/pokemon")
+def create_pokemon( pokemon : Pokemon ) -> Pokemon :
+    if pokemon.id in pokemon_dict :
+        raise HTTPException(status_code=404, detail="Le pokemon {pokemon.id} existe déjà.")
+    pokemon_dict[pokemon.id] = asdict( pokemon ) 
+    return pokemon
