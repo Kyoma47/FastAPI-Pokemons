@@ -1,5 +1,20 @@
 [
     {
+        "id": 3,
+        "name": "Venusaur",
+        "types": [
+            "Grass",
+            "Poison"
+        ],
+        "total": 525,
+        "hp": 80,
+        "attack": 82,
+        "defense": 83,
+        "attack_special": 100,
+        "defense_special": 100,
+        "speed": 80
+    },
+    {
         "id": 1,
         "name": "Bulbasaur",
         "types": [
@@ -31,21 +46,7 @@
         "speed": 60,
         "evolution_id": 3
     },
-    {
-        "id": 3,
-        "name": "Venusaur",
-        "types": [
-            "Grass",
-            "Poison"
-        ],
-        "total": 525,
-        "hp": 80,
-        "attack": 82,
-        "defense": 83,
-        "attack_special": 100,
-        "defense_special": 100,
-        "speed": 80
-    },
+
     {
         "id": 4,
         "name": "Charmander",
