@@ -52,3 +52,14 @@ def create_pokemon( pokemon : Pokemon ) -> Pokemon :
         raise HTTPException(status_code=404, detail="Le pokemon {pokemon.id} existe déjà.")
     pokemon_dict[pokemon.id] = asdict( pokemon ) 
     return pokemon
+
+#========================================
+#  PUT 
+#========================================
+# Modifier un pokemon :
+@app.post("/pokemon/{id}")
+def update_pokemon(pokemon: Pokemon, id: int = Path(ge=1) ) -> Pokemon :
+    if pokemon.id not in pokemon_dict :
+        raise HTTPException(status_code=404, detail="Ce pokemon n'existe pas !")
+    pokemon_dict[id] = asdict( pokemon )
+    return pokemon
